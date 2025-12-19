@@ -33,17 +33,38 @@ It supports user authentication, book management, and loan tracking — with rol
 - Users can borrow/return books
 - Admin can view all loan records
 
----
-
-## 🔐 Security
-
-- JWT-based authentication
-- Role-based authorization
-- Unapproved users cannot log in
+### ✅ Quality Assurance
+- Full Controller layer testing (@WebMvcTest)
+- Repository layer testing (@DataJpaTest)
+- Security context and Role testing
 
 ---
 
-## 🧪 Testing the API
+## 🧪 Automated Testing
+This project maintains high code coverage using **JUnit** 5 and **Mockito**.
+
+
+The test suite includes:
+- **Repository Tests**: Integration tests using H2 to verify database queries and custom finders.
+- **Controller Tests**: Slice tests using MockMvc to verify HTTP endpoints, JSON serialization, and Input Validation.
+- **Security Tests**: Verifies that endpoints are correctly protected by Roles (ADMIN vs USER) and that unauthorized access is blocked.
+
+
+
+---
+
+## 🔐 Security Architecture
+- Authentication: Stateless JWT (JSON Web Token)
+- Authorization: Method-level security (@PreAuthorize, @PostAuthorize)
+- Protection: - Passwords are encrypted using BCrypt.
+    - Unapproved users are locked out until Admin approval.
+    - Users cannot access data belonging to others.
+
+---
+
+
+
+## 🔌 API Endpoints & Usage
 
 You can use **Postman** or **cURL**:
 
