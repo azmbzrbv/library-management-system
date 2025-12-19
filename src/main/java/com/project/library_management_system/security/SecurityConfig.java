@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -48,8 +49,12 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(auth ->auth
                             .requestMatchers("/auth/**").permitAll()
-                            .requestMatchers("/users/**").hasRole("ADMIN")
-                            .requestMatchers("/loans/**").hasAnyRole("ADMIN", "USER")
+                            .requestMatchers(HttpMethod.DELETE, "/api/books/**").hasRole("ADMIN")
+                            .requestMatchers(HttpMethod.POST, "/api/books/**").hasRole("ADMIN")
+                            .requestMatchers(HttpMethod.PUT, "/api/books/**").hasRole("ADMIN")
+                            .requestMatchers(HttpMethod.GET, "/api/books/**").hasAnyRole("USER", "ADMIN")
+                            .requestMatchers("/api/users/**").hasRole("ADMIN")
+                            .requestMatchers("/api/loans/**").hasAnyRole("ADMIN", "USER")
                             .anyRequest().authenticated()
                 )
                 .oauth2ResourceServer(oauth2 -> oauth2

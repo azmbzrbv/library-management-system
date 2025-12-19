@@ -102,7 +102,7 @@ public class UserController {
 
     @GetMapping("/by-role")
     public List<User> findAllByRole(@RequestParam Role role){
-        List<User> users = findAllByRole(role);
+        List<User> users = userRepository.findAllByRole(role);
         if(users.isEmpty()){
             throw new NotFoundException(error);
         }

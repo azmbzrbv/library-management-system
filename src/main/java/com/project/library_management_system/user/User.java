@@ -1,5 +1,6 @@
 package com.project.library_management_system.user;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -58,6 +59,21 @@ public class User {
         this.role = role;
         this.approved = approved;
         this.loans = loans;
+    }
+
+    public User(User source) {
+        if (source != null) {
+            this.id = source.getId();
+            this.name = source.getName();
+            this.email = source.getEmail();
+            this.role = source.getRole();
+            this.approved = source.isApproved();
+            this.password = source.getPassword();
+            // Note: This is a "Shallow Copy" of the list.
+            // If you modify the list in the new user, it modifies the old one too.
+            // If you want a "Deep Copy" (completely separate list), use:
+            this.loans = source.getLoans() != null ? new ArrayList<>(source.getLoans()) : null;
+        }
     }
 
     public Long getId() {

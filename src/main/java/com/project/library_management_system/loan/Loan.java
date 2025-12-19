@@ -3,30 +3,28 @@ package com.project.library_management_system.loan;
 import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.project.library_management_system.book.Book;
 import com.project.library_management_system.user.User;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 @Entity
 public class Loan {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @OneToOne
-    @JsonManagedReference
+    @JsonProperty(access = Access.WRITE_ONLY)
     private Book book;
 
     @ManyToOne
-    @JsonManagedReference //will be shown in the json
+    @JsonProperty(access = Access.WRITE_ONLY)
     private User user;
     
 
@@ -49,6 +47,15 @@ public class Loan {
         this.loanDate = loanDate;
         this.returnDate = returnDate;
         this.returned = returned;
+    }
+
+    public Loan(Loan loan) {
+        this.id = loan.getId();
+        this.book = loan.getBook();
+        this.user = loan.getUser();
+        this.loanDate = loan.getLoanDate();
+        this.returnDate = loan.getReturnDate();
+        this.returned = loan.isReturned();
     }
 
 
@@ -109,6 +116,16 @@ public class Loan {
 
     public void setReturned(boolean returned) {
         this.returned = returned;
+    }
+
+    @JsonProperty("bookId") // This creates a "bookId": 200 field in the JSON
+    public Long getBookId() {
+        return book != null ? book.getId() : null;
+    }
+
+    @JsonProperty("userId") // This creates a "userId": 100 field in the JSON
+    public Long getUserId() {
+        return user != null ? user.getId() : null;
     }
         
     

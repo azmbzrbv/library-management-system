@@ -1,11 +1,11 @@
-insert into Book(id, title, author, isbn, available)
-values (1, 'Don Quixote', 'Miguel de Cervantes', '978-0060934347', true);
+insert into Book(title, author, isbn, available)
+values ('Don Quixote', 'Miguel de Cervantes', '978-0060934347', true);
 
-insert into Book(id, title, author, isbn, available)
-values (2, 'Pride and Prejudice', 'Jane Austen', '978-1503290563', true);
+insert into Book(title, author, isbn, available)
+values ('Pride and Prejudice', 'Jane Austen', '978-1503290563', true);
 
-insert into Book(id, title, author, isbn, available)
-values (3, 'The Hobbit', 'J.R.R. Tolkien', '978-0547928227', true);
+insert into Book(title, author, isbn, available)
+values ('The Hobbit', 'J.R.R. Tolkien', '978-0547928227', true);
 
 
 
@@ -31,16 +31,16 @@ VALUES (1004, 'Azim', 'bzrbvazm@gmail.com', '$2y$10$QLBkBgdQdi7T.YkybkukUeIaMmf8
 
 
 -- Loaned "Pride and Prejudice" to John Doe
-INSERT INTO Loan(id, book_id, user_id, loan_date, return_date, returned)
-VALUES (1, 2, 1002, '2025-03-01', '2025-03-15', false);
+INSERT INTO Loan(book_id, user_id, loan_date, return_date, returned)
+VALUES (2, 1002, '2025-03-01', '2025-03-15', false);
 
 -- Loaned "The Hobbit" to John Doe, returned
-INSERT INTO Loan(id, book_id, user_id, loan_date, return_date, returned)
-VALUES (2, 3, 1002, '2025-02-15', '2025-02-28', true);
+INSERT INTO Loan(book_id, user_id, loan_date, return_date, returned)
+VALUES (3, 1002, '2025-02-15', '2025-02-28', true);
 
 -- Loaned "Don Quoxote" to Jane Smith (not returned yet)
-INSERT INTO Loan(id, book_id, user_id, loan_date, return_date, returned)
-VALUES (3, 1, 1003, '2025-03-10', '2025-03-25', false);
+INSERT INTO Loan(book_id, user_id, loan_date, return_date, returned)
+VALUES (1, 1003, '2025-03-10', '2025-03-25', false);
 
 
 

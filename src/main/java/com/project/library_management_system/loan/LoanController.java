@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,6 +31,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/loans")
+@PreAuthorize("hasRole('ADMIN')")
 public class LoanController {
 
     private BookRepository bookRepository;
@@ -53,10 +56,13 @@ public class LoanController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+    @PostAuthorize("hasRole('ADMIN') or returnObject.user.email == authentication.name")
     public Loan findById(@PathVariable Long id){
         Optional<Loan> optional = loanRepository.findById(id);
         if(optional.isEmpty()){
-            throw new NotFoundException("Loans doesn't exists");
+            // If this throws, PostAuthorize is skipped (which is good/secure)
+            throw new NotFoundException("Loan doesn't exist");
         }
 
         return optional.get();
