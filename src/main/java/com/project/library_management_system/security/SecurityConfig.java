@@ -48,6 +48,11 @@ public class SecurityConfig {
             http.csrf(csrf->csrf.disable())
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(auth ->auth
+                            .requestMatchers(
+                                    "/v3/api-docs/**",
+                                    "/swagger-ui/**",
+                                    "/swagger-ui.html"
+                            ).permitAll()
                             .requestMatchers("/auth/**").permitAll()
                             .requestMatchers(HttpMethod.DELETE, "/api/books/**").hasRole("ADMIN")
                             .requestMatchers(HttpMethod.POST, "/api/books/**").hasRole("ADMIN")
