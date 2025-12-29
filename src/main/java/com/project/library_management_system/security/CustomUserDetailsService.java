@@ -33,7 +33,7 @@ public class CustomUserDetailsService implements UserDetailsService {
             throw new DisabledException("User is not approved yet");
         }
 
-        SimpleGrantedAuthority authority = new SimpleGrantedAuthority("ROlE_"+user.getRole().name());
+        SimpleGrantedAuthority authority = new SimpleGrantedAuthority("ROLE_"+user.getRole().name());
 
         return new org.springframework.security.core.userdetails.User(
                 user.getEmail(),
