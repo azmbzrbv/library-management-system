@@ -138,11 +138,14 @@ Authorization: Bearer <your-token>
 mvn spring-boot:run
 ```
 
-📌 Access H2 console (for dev):  
-`http://localhost:8080/h2-console`
 
 📌 Main API base path:  
 `http://localhost:8080/api`
+
+OR
+
+`http://13.53.36.164/api`
+
 
 ---
 
@@ -150,9 +153,5 @@ mvn spring-boot:run
 
 This project is open-source and free to use under the [MIT License](LICENSE).
 
----
 
-## 🙌 Author
-
-Made by **Azim Maksatbek uulu**
 
