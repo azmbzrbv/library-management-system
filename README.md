@@ -1,18 +1,27 @@
 # 📚 Library Management System - Backend (Spring Boot)
 
 This is the **REST API** for a Library Management System built with **Java Spring Boot**.  
-It supports user authentication, book management, and loan tracking — with role-based access using JWT.
+It supports user authentication, book management, and loan tracking — fully secured with JWT role-based access.
+
+The project is **deployed live on AWS** and includes a full CI/CD pipeline with automated testing.
+
+### 🚀 **[View Live API Documentation (Swagger UI)](http://13.53.36.164/swagger-ui/index.html)**
 
 ---
 
 ## ⚙️ Tech Stack
 
 - **Java 17+**
-- **Spring Boot**
-- **Spring Security (JWT-based)**
-- **Spring Data JPA (Hibernate)**
-- **H2 Database (in-memory)**
+- **Spring Boot 3**
+- **Spring Security** (JWT Resource Server)
+- **Spring Data JPA** (Hibernate)
+- **H2 Database** (In-memory)
 - **Maven**
+- **JUnit 5 & Mockito** (Testing)
+- **Docker & Docker Hub** (Containerization)
+- **AWS EC2** (Cloud Deployment)
+- **GitHub Actions** (CI/CD)
+- **OpenAPI / Swagger** (API Documentation)
 
 ---
 
@@ -20,38 +29,63 @@ It supports user authentication, book management, and loan tracking — with rol
 
 ### 📖 Books
 - View all books
-- Search by title, author, availability
-- Create, update, delete (admin only)
+- Search by title, author, and availability
+- Create, update, delete (Admin only)
 
 ### 👤 Users
-- Register new users (requires admin approval)
+- Register new users (requires Admin approval)
 - Admin can view/update/delete users
 - Role-based access: `ADMIN` or `USER`
-- Login returns JWT token
+- Secure Login returning a JWT token
 
 ### 🔁 Loans
-- Users can borrow/return books
-- Admin can view all loan records
+- Users can borrow and return books
+- **Smart Security:** Users can only view their own loans; Admins can view all.
+- History tracking of returned books
 
-### ✅ Quality Assurance
-- Full Controller layer testing (@WebMvcTest)
-- Repository layer testing (@DataJpaTest)
-- Security context and Role testing
+---
+
+## 📄 API Documentation
+
+The API is fully documented using **Swagger UI (OpenAPI)**. You can explore endpoints and test them directly in the browser.
+
+👉 **[Go to Swagger UI](http://13.53.36.164/swagger-ui/index.html)**
+
+> **Tip:** To test secured endpoints in Swagger:
+> 1. Login using the `/auth/login` endpoint to get a Token.
+> 2. Click the **Authorize** button at the top of the Swagger page.
+> 3. Paste the token as: `Bearer <your-token>`.
+
+---
+
+## 🚀 DevOps & Deployment
+
+This project uses a fully automated **CI/CD Pipeline** using **GitHub Actions**.
+
+### The Pipeline Workflow:
+1.  **Push to Main:** Code is pushed to the GitHub repository.
+2.  **Automated Testing:** `mvn test` runs Unit and Integration tests.
+3.  **Build & Package:** Maven builds the JAR file.
+4.  **Containerization:** A Docker image is built and pushed to **Docker Hub**.
+5.  **Deployment:** GitHub Actions connects to **AWS EC2** via SSH, pulls the latest image, and restarts the container.
 
 ---
 
 ## 🧪 Automated Testing
-This project maintains high code coverage using **JUnit** 5 and **Mockito**.
 
+The project maintains high code coverage using **JUnit 5** and **Mockito**.
 
 The test suite includes:
-- **Repository Tests**: Integration tests using H2 to verify database queries and custom finders.
-- **Controller Tests**: Slice tests using MockMvc to verify HTTP endpoints, JSON serialization, and Input Validation.
-- **Security Tests**: Verifies that endpoints are correctly protected by Roles (ADMIN vs USER) and that unauthorized access is blocked.
+- **Repository Tests:** Integration tests using H2 to verify database queries.
+- **Controller Tests:** Slice tests using `MockMvc` for endpoints and validation.
+- **Security Tests:** Verification of Role-based access control (RBAC).
 
+Run tests locally:
+```bash
 
+mvn test
+```
 
----
 
 ## 🔐 Security Architecture
 - Authentication: Stateless JWT (JSON Web Token)
